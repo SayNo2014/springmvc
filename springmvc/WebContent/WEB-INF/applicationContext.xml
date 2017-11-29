@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dnl="http://www.sayno.win/schema/property"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.sayno.win/schema/property http://www.sayno.win/schema/property.xsd">
+
+    <dnl:property id="myProperty" name="sayno" value="sayno.win"/>
+
+    <!-- BeanFactoryPostProcessor -->
+    <bean class="win.sayno.processor.MyBeanPostProcessor" scope="singleton"/>
+    
+    <!-- order -->
+    <bean class="win.sayno.processor.MyOrderBeanPostProcessor"/>
+    
+    <!-- BeanFactoryAware -->
+    <bean class="win.sayno.aware.MyBeanFactoryAware"/>
+    
+    <!-- service -->
+    <bean id="myService" class="win.sayno.service.MyService" init-method="init"/>
+    
+    <!-- controller -->
+    <bean id="myController" class="win.sayno.controller.MyController" scope="prototype">
+        <property name="myService" ref="myService"/>
+    </bean>
+    
+    <!-- message -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="message/resource"/>
+    </bean>
+    
+    <!-- parent -->
+    <bean id="parentBean" class="win.sayno.parent.ParentBean">
+       <property name="desc" value="win.sayno.parent.ParentBean"/>
+    </bean>
+    
+    <bean id="childBean1" parent="parentBean">
+       <property name="name" value="sayno.win"></property>
+       <property name="value" value="sayno.win"></property>
+    </bean>
+    
+    <bean id="childBean2" parent="parentBean">
+       <property name="name" value="sayno.site"></property>
+       <property name="value" value="sayno.site"></property>
+    </bean>
+    
+    <bean id="childBean3" parent="parentBean">
+       <property name="name" value="sayno.blog"></property>
+       <property name="value" value="sayno.blog"></property>
+    </bean>
+    
+</beans>
