@@ -9,12 +9,12 @@ public class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegi
 
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		
+		System.out.println(this.getClass().getName() + "#postProcessBeanFactory....");
 	}
 
 	@Override
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-		
+		System.out.println(this.getClass().getName() + "#postProcessBeanDefinitionRegistry....");
 	}
 
 }

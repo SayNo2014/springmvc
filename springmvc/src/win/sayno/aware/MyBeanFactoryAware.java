@@ -11,8 +11,14 @@ import win.sayno.processor.MyBeanPostProcessor;
 @Component
 public class MyBeanFactoryAware implements BeanFactoryAware {
 
+	public MyBeanFactoryAware() {
+		super();
+		System.out.println(this.getClass().getName() + "¹¹Ôìº¯Êý....");
+	}
+	
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+		// Ó²±àÂë×¢²áBeanPostProcessor
 		((ConfigurableListableBeanFactory)beanFactory).addBeanPostProcessor(new MyBeanPostProcessor());
 	}
 

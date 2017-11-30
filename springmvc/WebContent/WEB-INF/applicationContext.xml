@@ -4,23 +4,39 @@
     xmlns:dnl="http://www.sayno.win/schema/property"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.sayno.win/schema/property http://www.sayno.win/schema/property.xsd">
-
+    <!-- 自定义标签 -->
     <dnl:property id="myProperty" name="sayno" value="sayno.win"/>
 
-    <!-- BeanFactoryPostProcessor -->
-    <bean class="win.sayno.processor.MyBeanPostProcessor" scope="singleton"/>
-    
-    <!-- order -->
-    <bean class="win.sayno.processor.MyOrderBeanPostProcessor"/>
-    
     <!-- BeanFactoryAware -->
     <bean class="win.sayno.aware.MyBeanFactoryAware"/>
     
+    <!-- BeanFactoryPostProcessor -->
+    <bean class="win.sayno.processor.MyBeanPostProcessor" scope="singleton"/>
+    
+    <!-- OrderBeanPostProcessor -->
+    <bean class="win.sayno.processor.MyOrderBeanPostProcessor"/>
+    
+    <!-- SmartInstantiationAwareBeanPostProcessor -->
+    <bean class="win.sayno.processor.MySmartInstantiationAwareBeanPostProcessor"/>
+    
+    <!-- InstantiationAwareBeanPostProcessor -->
+    <bean class="win.sayno.processor.MyInstantiationAwareBeanPostProcessor"/>
+    
+    <!-- FactoryBean -->
+    <bean id="factoryBean" class="win.sayno.factorybean.MyFactoryBean"/>
+    
+        
+    <!-- Depend-On -->
+    <bean id="bean" class="win.sayno.dependon.Bean" factory-bean="factoryBean" factory-method="getDependOnBean">
+        <constructor-arg value="1" index="0"/>
+    </bean>
+    
     <!-- service -->
-    <bean id="myService" class="win.sayno.service.MyService" init-method="init"/>
+    <bean id="myService" class="win.sayno.service.MyService" init-method="init" scope="singleton" depends-on="bean">
+    </bean>
     
     <!-- controller -->
-    <bean id="myController" class="win.sayno.controller.MyController" scope="prototype">
+    <bean id="myController" class="win.sayno.controller.MyController" scope="singleton">
         <property name="myService" ref="myService"/>
     </bean>
     
@@ -28,7 +44,7 @@
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="message/resource"/>
     </bean>
-    
+
     <!-- parent -->
     <bean id="parentBean" class="win.sayno.parent.ParentBean">
        <property name="desc" value="win.sayno.parent.ParentBean"/>

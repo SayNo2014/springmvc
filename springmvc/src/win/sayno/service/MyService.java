@@ -15,6 +15,10 @@ public class MyService implements ApplicationContextAware {
 	
 	private ApplicationContext applicationContext;
 	
+	public MyService() {
+		System.out.println("MyService进行实例化...");
+	}
+	
 	public void doService () {
 		System.out.println("do something...");
 	}

@@ -1,9 +1,10 @@
 package win.sayno.processor;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.beans.factory.support.MergedBeanDefinitionPostProcessor;
+import org.springframework.beans.factory.support.RootBeanDefinition;
 
-public class MyBeanPostProcessor implements BeanPostProcessor {
+public class MyMergedBeanDefinitionPostProcessor implements MergedBeanDefinitionPostProcessor {
 
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
@@ -19,6 +20,13 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 			System.out.println(this.getClass().getName() + "#postProcessAfterInitialization....");
 		}
 		return bean;
+	}
+
+	@Override
+	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
+		if ("myService".equals(beanName)) {
+			System.out.println(this.getClass().getName() + "#postProcessMergedBeanDefinition....");
+		}
 	}
 
 }
