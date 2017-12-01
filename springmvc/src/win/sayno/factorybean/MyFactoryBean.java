@@ -6,32 +6,24 @@ import win.sayno.dependon.MyDependOnBean;
 
 public class MyFactoryBean {
 	
-	private volatile Bean bean;
+	private volatile static Bean bean;
 	
 	public MyFactoryBean() {
 		System.out.println("MyFactoryBean≥ı ºªØ...");
 	}
 	
-	public Bean getDependOnBean(String index) {
-		if ("1".equals(index)) {
-			if (bean == null) {
-				bean = new MyDependOnBean();
-				bean.setDesc("SayNo");
-			}
-		} else {
-			if (bean == null) {
-				bean = new DefaultBean();
-				bean.setDesc("SayNo");
+	public static Bean getDependOnBean(String index) {
+		if (bean == null) {
+			synchronized (MyFactoryBean.class) {
+				if ("1".equals(index)) {
+					bean = new MyDependOnBean();
+					bean.setDesc("SayNo");
+				} else {
+					bean = new DefaultBean();
+					bean.setDesc("SayNo");
+				}
 			}
 		}
 		return bean;
-	}
-
-	public Bean getBean() {
-		return bean;
-	}
-
-	public void setBean(Bean bean) {
-		this.bean = bean;
 	}
 }
