@@ -23,7 +23,7 @@
     <bean class="win.sayno.processor.MyInstantiationAwareBeanPostProcessor"/>
     
     <!-- FactoryBean -->
-    <bean id="factoryBean" class="win.sayno.factorybean.MyFactoryBean"/>
+    <bean id="factoryBean" class="win.sayno.factorybean.MyFactoryBean" scope="singleton"/>
     
         
     <!-- Depend-On -->
@@ -33,10 +33,11 @@
     
     <!-- service -->
     <bean id="myService" class="win.sayno.service.MyService" init-method="init" scope="singleton" depends-on="bean">
+        <property name="person" value="sayno.win,昌平-北京-北京"></property>
     </bean>
     
     <!-- controller -->
-    <bean id="myController" class="win.sayno.controller.MyController" scope="singleton">
+    <bean id="myController" class="win.sayno.controller.MyController" scope="singleton" factory-method="getController">
         <property name="myService" ref="myService"/>
     </bean>
     
@@ -65,4 +66,40 @@
        <property name="value" value="sayno.blog"></property>
     </bean>
     
+    <bean name="person" class="win.sayno.entity.Person">
+        <property name="name" value="SayNo"/>
+        <property name="address" value="北京-北京-昌平" />
+    </bean>
+    <!-- custom PropertyEditorSupport -->
+    <bean id="customEditorConfigurer"
+        class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="win.sayno.entity.Address" value="win.sayno.editor.AddressPropertyEditorSupport">
+                </entry>
+            </map>
+        </property>
+    </bean>
+    
+    <!-- applicationListener -->
+    <bean class="win.sayno.listener.MyApplicationListener"/>
+    
+    <!-- convert -->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="win.sayno.convert.PersonConverter"/>
+            </set>
+        </property>
+    </bean>
+    
+    <!-- circularreference -->
+    <bean name="beanB" class="win.sayno.circularreference.BeanB">
+        <property name="beanA" ref="beanA"></property>
+    </bean>
+    <bean name="beanA" class="win.sayno.circularreference.BeanA">
+        <property name="beanB" ref="beanB"></property>
+    </bean>
+    
+    <bean class="win.sayno.singleton.SingletonBean" init-method="init"/>
 </beans>

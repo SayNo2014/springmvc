@@ -6,13 +6,13 @@ import win.sayno.dependon.MyDependOnBean;
 
 public class MyFactoryBean {
 	
-	private volatile static Bean bean;
+	private volatile Bean bean;
 	
 	public MyFactoryBean() {
 		System.out.println("MyFactoryBean≥ı ºªØ...");
 	}
 	
-	public static Bean getDependOnBean(String index) {
+	public Bean getDependOnBean(String index) {
 		if (bean == null) {
 			synchronized (MyFactoryBean.class) {
 				if ("1".equals(index)) {

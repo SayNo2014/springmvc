@@ -6,10 +6,13 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import win.sayno.entity.Person;
 import win.sayno.label.Property;
 import win.sayno.parent.ParentBean;
 
 public class MyService implements ApplicationContextAware {
+	
+	private Person person;
 	
 	private Property property;
 	
@@ -51,5 +54,12 @@ public class MyService implements ApplicationContextAware {
 	public void setProperty(Property property) {
 		this.property = property;
 	}
-	
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 }
