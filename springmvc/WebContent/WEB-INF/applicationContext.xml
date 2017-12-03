@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:dnl="http://www.sayno.win/schema/property"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.sayno.win/schema/property http://www.sayno.win/schema/property.xsd">
+        http://www.sayno.win/schema/property http://www.sayno.win/schema/property.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- 自定义标签 -->
     <dnl:property id="myProperty" name="sayno" value="sayno.win"/>
 
@@ -103,4 +105,21 @@
     
     <!-- 普通单例bean -->
     <bean class="win.sayno.singleton.SingletonBean" init-method="init"/>
+    
+    <!-- aop -->
+    <aop:aspectj-autoproxy/>
+    
+    <bean id="userService" class="win.sayno.service.UserServiceImpl"/>
+    
+    <bean id="aopAspect" class="win.sayno.aop.AopAspect"/>
+    
+    <aop:config>
+        <aop:aspect ref="aopAspect">
+            <aop:pointcut expression="execution(public void win.sayno.service.UserService.save())" id="pointcut"/>
+            <aop:before method="before" pointcut-ref="pointcut"/>
+            <aop:after method="after" pointcut-ref="pointcut"/>
+            <aop:around method="around" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+    
 </beans>

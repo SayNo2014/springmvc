@@ -3,7 +3,7 @@ package win.sayno.listener;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
-import win.sayno.service.MyService;
+import win.sayno.service.UserService;
 
 public class MyApplicationListener implements ApplicationListener<ContextRefreshedEvent>{
 
@@ -11,9 +11,9 @@ public class MyApplicationListener implements ApplicationListener<ContextRefresh
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		System.out.println(
 				event.getApplicationContext().getBean("person").toString());
-		MyService myService = (MyService) event.getApplicationContext().
-				getBean("myService");
-		System.out.println(myService.getPerson().toString());
+		UserService userService = (UserService) event.getApplicationContext().
+				getBean("userService");
+		userService.save();
 	}
 
 }
