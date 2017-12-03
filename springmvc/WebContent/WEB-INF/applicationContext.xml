@@ -4,7 +4,6 @@
     xmlns:dnl="http://www.sayno.win/schema/property"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.sayno.win/schema/property http://www.sayno.win/schema/property.xsd">
-   
     <!-- 自定义标签 -->
     <dnl:property id="myProperty" name="sayno" value="sayno.win"/>
 
