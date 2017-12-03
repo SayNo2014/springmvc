@@ -101,5 +101,6 @@
         <property name="beanB" ref="beanB"></property>
     </bean>
     
+    <!-- 普通单例bean -->
     <bean class="win.sayno.singleton.SingletonBean" init-method="init"/>
 </beans>
