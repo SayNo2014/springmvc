@@ -12,7 +12,6 @@ public class MyController {
 	private volatile static MyController controller;
 	
 	private MyController() {
-		
 	}
 	
 	private MyService myService;

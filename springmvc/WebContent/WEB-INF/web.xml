@@ -5,8 +5,23 @@
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   
-  <context-param>
+<!--   <context-param>
   	<param-name>contextClass</param-name>
   	<param-value>win.sayno.context.MyXmlWebApplicationContext</param-value>
-  </context-param>
+  </context-param> -->
+  
+  <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+        <param-name>sayno</param-name>
+        <param-value>sayno.win</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
 </web-app>
