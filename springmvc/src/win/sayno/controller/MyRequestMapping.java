@@ -16,16 +16,8 @@ public class MyRequestMapping {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/requestMapping",method=RequestMethod.GET)
+	@RequestMapping(value="/requestMapping",method=RequestMethod.POST)
 	public ModelAndView requestMapping1() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("message", this.getClass().getName());
-		modelAndView.setViewName("/WEB-INF/jsp/index.jsp");
-		return modelAndView;
-	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public ModelAndView requestMapping2() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("message", this.getClass().getName());
 		modelAndView.setViewName("/WEB-INF/jsp/index.jsp");
